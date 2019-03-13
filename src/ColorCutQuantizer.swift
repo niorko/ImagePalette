@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SwiftPriorityQueue
 
 private let COMPONENT_RED = -3
 private let COMPONENT_GREEN = -2
