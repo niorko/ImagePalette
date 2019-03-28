@@ -18,10 +18,10 @@ open class PaletteSwatch {
 	private let hex: Int64
 
 	/** This swatch’s color */
-	open let color: UIColor
+	public let color: UIColor
 
 	/** The number of pixels represented by this swatch */
-	open let population: Int64
+	public let population: Int64
 
 	private var generatedTextColors: Bool = false
 	private var _titleTextColor: UIColor?
@@ -139,12 +139,11 @@ extension PaletteSwatch: CustomDebugStringConvertible {
 }
 
 extension PaletteSwatch: Equatable, Hashable {
-
-	public var hashValue: Int {
-        let maxInt = Int(Int32.max)
-		return Int((31 * self.color.hashValue + Int(self.population)) % maxInt)
-	}
-
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(31 * self.color.hashValue)
+        hasher.combine(self.population)
+    }
 }
 
 public func ==(lhs: PaletteSwatch, rhs: PaletteSwatch) -> Bool {

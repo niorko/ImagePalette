@@ -225,8 +225,6 @@ private class Vbox: Hashable {
 
 	private static var ordinal = Int32(0)
 
-	let hashValue = Int(OSAtomicIncrement32(&Vbox.ordinal))
-
 	init(quantizer: ColorCutQuantizer, lowerIndex: Int, upperIndex: Int) {
 		self.quantizer = quantizer
 
@@ -235,6 +233,10 @@ private class Vbox: Hashable {
 		assert(self.lowerIndex <= self.upperIndex, "lowerIndex (\(self.lowerIndex)) can’t be > upperIndex (\(self.upperIndex))")
 		self.fitBox()
 	}
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(OSAtomicIncrement32(&Vbox.ordinal))
+    }
 
 	var volume: Int64 {
 		let red = Double((self.maxRed - self.minRed) + 1)
